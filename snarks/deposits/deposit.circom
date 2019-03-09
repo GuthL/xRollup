@@ -5,24 +5,25 @@ include "./circuits/bitify.circom";
 template Main(n,k) {
     signal input current_state;
 
-    signal input index[k];
-    signal private input paths2root[k][n-1];
+    signal input last_index;
     
     signal input pubkey[k][2];
     signal input deposit[k];
     signal input token_type[k];
 
+    signal private input paths2root[k][n-1];
     signal private input R8x[k];
     signal private input R8y[k];
     signal private input S[k];
 
-    signal output out;
-
-    var NONCE_MAX_VALUE = 100;
+    signal output new_state;
+    signal output new_index;
 
     var i
     var j;
     
+    last_index < 2**n;
+
     // computes account 
     component old_hash[k];
     component new_hash[k];
@@ -35,7 +36,8 @@ template Main(n,k) {
     //get path to root
     for (i=0;i<k;i++){
         n2b[i] = Num2Bits(n-1);
-        n2b[i].in <== index[i];
+        tmp_index = tmp_index+i;
+        n2b[i].in <== tmp_index;
 
         old_hash[i] = MultiMiMC7(1,91);
         old_hash[i].in[0] <== 0;
@@ -71,6 +73,7 @@ template Main(n,k) {
         }
     
     out <== new_merkle[k-1][n-2].out;
+    new_index <== last_index+k;
 
     }
 
