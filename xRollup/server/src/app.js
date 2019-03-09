@@ -42,6 +42,7 @@ const eventWatcher = new EventWatcher(logService, contractService, stateManager)
 eventWatcher.subscribeToBlocks(null);
 // eventWatcher.getPastEvents(null);
 eventWatcher.subscribeToDeposit(null);
+eventWatcher.subscribeToKeyRegistration(null);
 
 /* 
     const pubKey = req.body.pubKey;
