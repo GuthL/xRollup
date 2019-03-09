@@ -5,14 +5,36 @@ module.exports = class StateManager {
         this.contractService = contractService;
 
         this.addressToPublicKeyMapping = {};
+        this.nonces = {};
+        this.tokenBalances = {};
     }
 
     setPublicKey(address, publicKey) {
         this.addressToPublicKeyMapping[address] = publicKey;
+        this.nonces[publicKey] = 0;
     }
 
     getPublicKey(address) {
         return this.addressToPublicKeyMapping[address] || null;
+    }
+
+    setNonce(publicKey, nonce) {
+        this.nonces[publicKey] = nonce;
+    } 
+
+    getNonce(publicKey) {
+        return this.nonces[publicKey] || 0;
+    }
+
+    setTokenBalance(publicKey, token, amount) {
+        if (!this.tokenBalances[publicKey]) {
+            this.tokenBalances[publicKey] = {};
+        }
+        this.tokenBalances[publicKey][token] = amount;
+    }
+
+    getTokenBalance(publicKey, token) {
+        return this.tokenBalances[publicKey][token] || 0;
     }
 
     getState() {
@@ -39,8 +61,33 @@ module.exports = class StateManager {
         
     }
 
-    transfer(tokenId, to, from, amount) {
-        //TODO: Save transfer to state
+    transfer(params) {
+        const to = params['to'];
+        const from = params['from'];
+        const tokenId = params['tokenId'];
+        const amount = params['amount'];
+        const signature = params['signature'];
+        const nonce = params['nonce'];
+
+        // Check if sender and reciever are in state
+
+
+        // Transfer Logic
+        const senderBalance = getTokenBalance(from, tokenId);
+        const recipientBalance = getTokenBalance(to, tokenId);
+
+        if (amount > senderBalance) {
+            throw new Error("Insufficent Balance", tokenId, to, from, amount);
+        }
+
+        senderBalance -= amount;
+        recipientBalance += amount;
+
+        setTokenBalance(from, tokenId, senderBalance);
+        setTokenBalance(to, tokenId, recipientBalance);
+
+        // Compute Merkel Root
+
         this.logService.info('Transfer', {
             tokenId: tokenId,
             to: to,
@@ -66,10 +113,27 @@ module.exports = class StateManager {
         });
     }
 
-    deposit(tokenId, from, amount) {
+    deposit(params) {
+
+        const publicKey = params['publicKey'];
+        const ethereumAddress = params['ethereumAddress'];
+        const tokenId = params['tokenId'];
+        const amount = params['amount'];
+        const signature = params['signature'];
+        const nonce = params['nonce'];
+
+        // Create an entry for this user if new 
+        if (!getPublicKey(ethereumAddress)) {
+            setPublicKey(ethereumAddress, from);
+        }
+
+        setTokenBalance(from, tokenId, amount);
+
+        //Compute Merkel Root
+
         this.logService.info('Deposit', {
             tokenId: tokenId,
-            from: from,
+            from: publicKey,
             amount: amount,
         });
     }

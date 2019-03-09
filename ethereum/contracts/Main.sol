@@ -22,8 +22,17 @@ contract Main is Ownable, Verifier {
     // User Functions
 
     function registerKey(uint256 _publicKey) public {
-        require(userKeys[msg.sender] == 0, "User has existing key");
+        // require(userKeys[msg.sender] == 0, "User has existing key");
         userKeys[msg.sender] = _publicKey;
+        emit KeyRegistered(msg.sender, _publicKey);
+    }
+
+    function getKey(address _user) public view returns(uint256) {
+        return userKeys[_user];
+    }
+    
+    function getMyKey() public view returns(uint256) {
+        return userKeys[msg.sender];
     }
     
     // Requires approval for ERC20 token first

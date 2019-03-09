@@ -59,14 +59,29 @@ var server = jayson.server({
     },
     eth_sendTransaction: function (args, callback) {
         let result = "";
+        const params = args[1];
         switch (args[0]) {
             case "transfer":
                 result = "transfer";
-                stateManager.transfer(1, 1, 1, 1);
+                stateManager.transfer({
+                    to: params.to,
+                    from: params.from, 
+                    tokenId: params.tokenId,
+                    amount: params.amount,
+                    signature: params.signature, 
+                    nonce: params.nonce,
+                });
                 break;
-            case "withdraw":
-                result = "withdraw";
-                stateManager.withdraw(1, 1, 1);
+            case "deposit":
+                result = "transfer";
+                stateManager.transfer({
+                    publicKey: params['publicKey'],
+                    ethereumAddress: params['ethereumAddress'],
+                    tokenId: params['tokenId'],
+                    amount: params['amount'],
+                    signature: params['signature'],
+                    nonce: params['nonce'],
+                };
                 break;
             default:
                 result = "unknown";
@@ -97,7 +112,8 @@ var client = jayson.client.http({
     port: PORT
 });
 
-client.request('eth_sendTransaction', ["withdraw"], function (err, response) {
+client.request('eth_sendTransaction', ["deposit", {
+}], function (err, response) {
     if (err) throw err;
     console.log(response.result); // 2
 });
