@@ -7,7 +7,7 @@ module.exports = class ContractService {
         console.log(this.ethAccount);
 
         const abi = require('../build/contracts/Main.json').abi;
-        const address = "0x54C45E3304862b758865CFeEdC85491Cc81336A6";
+        const address = "0x6eDF2f9C21C52F5df78d90fEc0d39bB79931C73E";
         console.log("address", address);
         this.mainContract = new this.web3.eth.Contract(abi, address);
         //TODO: set main service

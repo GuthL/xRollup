@@ -1,10 +1,8 @@
 module.exports = class EventWatcher {
-    constructor(logService, contractService) {
+    constructor(logService, contractService, stateManager) {
         this.logService = logService;
         this.contractService = contractService;
-        // const mainInterface = require('../build/contracts/Main.json');
-        // const deployedAddress = '0x0';
-        // this.mainContract = new this.web3.eth.Contract(mainInterface.abi,deployedAddress);
+        this.stateManager = stateManager;
     }
 
     subscribeToBlocks(callback) {
@@ -17,13 +15,48 @@ module.exports = class EventWatcher {
             });
     }
 
+    getPastEvents(callback) {
+        this.contractService.getMainContract().getPastEvents('Deposit', {
+            fromBlock: 0,
+            toBlock: 'latest'
+        }, (error, events) => { console.log(events); })
+        .then((events) => {
+            console.log(events) // same results as the optional callback above
+        });
+    }
+
     subscribeToDeposit(callback) {
-        this.logService.info('[Ethereum] Deposit Found', {});
-        this.contractService.getMainContract().events.KeyRegistered({
-            filter: {}, // Using an array means OR: e.g. 20 or 23
+        this.contractService.getMainContract().events.Deposit({
             fromBlock: 0
-        }, (error, event) => { console.log(event); })
+        }, (error, event) => { 
+            // console.log(event); 
+        })
         .on('data', (event) => {
+            this.logService.info('[Ethereum] Deposit', {});
+            console.log('Deposit', event.returnValues);
+
+            this.stateManager.deposit({
+                publicKey: event.publicKey,
+                ethereumAddress: event.user,
+                tokenId: event.token,
+                amount: event.amount,
+            });
+        })
+        .on('changed', (event) => {
+            // remove event from local database
+        })
+        .on('error', console.error);
+
+    }
+
+    subscribeToKeyRegistration(callback) {
+        this.contractService.getMainContract().events.KeyRegistered({
+            fromBlock: 0
+        }, (error, event) => { 
+            // console.log(event); 
+        })
+        .on('data', (event) => {
+            this.logService.info('[Ethereum] Key Registration', {});
             console.log(event); // same results as the optional callback above
         })
         .on('changed', (event) => {

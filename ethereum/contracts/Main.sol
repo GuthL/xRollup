@@ -14,7 +14,7 @@ contract Main is Ownable, Verifier {
     uint256 state;
     
     event KeyRegistered(address indexed user, uint256 indexed publicKey);
-    event Deposit(address indexed user, address indexed token, uint128 amount);
+    event Deposit(address indexed user, uint256 indexed publicKey, address indexed token, uint128 amount);
     event Withdraw(address indexed user, address indexed token, uint128 amount);
     event StateUpdated(uint256 oldState, uint256 newState);
     event StateRejected(uint256 oldState, uint256 rejectedState);
@@ -42,7 +42,7 @@ contract Main is Ownable, Verifier {
         
         tokenBalances[msg.sender][_token].add(_amount);
         require(ERC20(_token).transferFrom(msg.sender, address(this), _amount), "Token transfer failed");
-        emit Deposit(msg.sender, _token, _amount);
+        emit Deposit(msg.sender, userKeys[msg.sender], _token, _amount);
     }
     
     function withdrawToken(address _token, address _recipient, uint128 _amount, uint256 _proof, uint256 _newState) public onlyOwner() {

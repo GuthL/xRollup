@@ -114,20 +114,17 @@ module.exports = class StateManager {
     }
 
     deposit(params) {
-
         const publicKey = params['publicKey'];
         const ethereumAddress = params['ethereumAddress'];
         const tokenId = params['tokenId'];
         const amount = params['amount'];
-        const signature = params['signature'];
-        const nonce = params['nonce'];
 
         // Create an entry for this user if new 
-        if (!getPublicKey(ethereumAddress)) {
-            setPublicKey(ethereumAddress, from);
+        if (!this.getPublicKey(ethereumAddress)) {
+            this.setPublicKey(ethereumAddress, publicKey);
         }
 
-        setTokenBalance(from, tokenId, amount);
+        this.setTokenBalance(publicKey, tokenId, amount);
 
         //Compute Merkel Root
 

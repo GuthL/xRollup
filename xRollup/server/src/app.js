@@ -30,16 +30,17 @@ winston.add(files);
 const privKey = require('./config').privKey;
 
 // We have 2 web3 because you need websocket for subscriptions, but I don't know how to use mnemonic keys w/ websocket provider...
-var web3 = new Web3(new Web3.providers.WebsocketProvider('wss://mainnet.infura.io/ws'));
+var web3 = new Web3(new Web3.providers.WebsocketProvider('wss://rinkeby.infura.io/ws'));
 const account = web3.eth.accounts.privateKeyToAccount(privKey);
 console.log(account);
 
 const logService = new LogService(winston);
 const contractService = new ContractService(web3);
 const stateManager = new StateManager(logService, contractService);
-const eventWatcher = new EventWatcher(logService, contractService);
+const eventWatcher = new EventWatcher(logService, contractService, stateManager);
 
 eventWatcher.subscribeToBlocks(null);
+// eventWatcher.getPastEvents(null);
 eventWatcher.subscribeToDeposit(null);
 
 /* 
@@ -72,17 +73,6 @@ var server = jayson.server({
                     nonce: params.nonce,
                 });
                 break;
-            case "deposit":
-                result = "transfer";
-                stateManager.transfer({
-                    publicKey: params['publicKey'],
-                    ethereumAddress: params['ethereumAddress'],
-                    tokenId: params['tokenId'],
-                    amount: params['amount'],
-                    signature: params['signature'],
-                    nonce: params['nonce'],
-                };
-                break;
             default:
                 result = "unknown";
                 break;
@@ -110,15 +100,4 @@ server.http().listen(PORT);
 // Create Client
 var client = jayson.client.http({
     port: PORT
-});
-
-client.request('eth_sendTransaction', ["deposit", {
-}], function (err, response) {
-    if (err) throw err;
-    console.log(response.result); // 2
-});
-
-client.request('eth_call', ["getState"], function (err, response) {
-    if (err) throw err;
-    console.log(response.result); // 2
 });
