@@ -14,7 +14,7 @@ contract Main is Ownable, Verifier {
     uint256 state;
     
     event KeyRegistered(address indexed user, uint256 indexed publicKey);
-    event Deposit(address indexed user, address indexed token, uint128 amount);
+    event Deposit(address indexed user, uint256 indexed publicKey, address indexed token, uint128 amount);
     event Withdraw(address indexed user, address indexed token, uint128 amount);
     event StateUpdated(uint256 oldState, uint256 newState);
     event StateRejected(uint256 oldState, uint256 rejectedState);
@@ -22,8 +22,17 @@ contract Main is Ownable, Verifier {
     // User Functions
 
     function registerKey(uint256 _publicKey) public {
-        require(userKeys[msg.sender] == 0, "User has existing key");
+        // require(userKeys[msg.sender] == 0, "User has existing key");
         userKeys[msg.sender] = _publicKey;
+        emit KeyRegistered(msg.sender, _publicKey);
+    }
+
+    function getKey(address _user) public view returns(uint256) {
+        return userKeys[_user];
+    }
+    
+    function getMyKey() public view returns(uint256) {
+        return userKeys[msg.sender];
     }
     
     // Requires approval for ERC20 token first
@@ -33,10 +42,10 @@ contract Main is Ownable, Verifier {
         
         tokenBalances[msg.sender][_token].add(_amount);
         require(ERC20(_token).transferFrom(msg.sender, address(this), _amount), "Token transfer failed");
-        emit Deposit(msg.sender, _token, _amount);
+        emit Deposit(msg.sender, userKeys[msg.sender], _token, _amount);
     }
     
-    function withdrawToken(address _token, uint128 _amount) public {
+    function withdrawToken(address _token, address _recipient, uint128 _amount, uint256 _proof, uint256 _newState) public onlyOwner() {
         //TODO: We will get this value from the state
         require(tokenBalances[msg.sender][_token] >= _amount, "Attempt to withdraw more than user has");
 
