@@ -1,1 +1,1 @@
-node ./xRollup/server/src/app.js
+node xRollup/server/src/app.js
