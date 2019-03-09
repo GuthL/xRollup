@@ -13,13 +13,23 @@ module.exports = class EventWatcher {
             
             console.log('Successfully subscribed!', blockHeader);
             }).on('data', (blockHeader) => {
-            console.log('data: ', blockHeader);
+            // console.log('data: ', blockHeader);
             });
     }
 
     subscribeToDeposit(callback) {
         this.logService.info('[Ethereum] Deposit Found', {});
-        return this;
+        this.contractService.getMainContract().events.KeyRegistered({
+            filter: {}, // Using an array means OR: e.g. 20 or 23
+            fromBlock: 0
+        }, (error, event) => { console.log(event); })
+        .on('data', (event) => {
+            console.log(event); // same results as the optional callback above
+        })
+        .on('changed', (event) => {
+            // remove event from local database
+        })
+        .on('error', console.error);
     }
 
     subscribeToStateChanges(callback) {

@@ -35,8 +35,8 @@ const account = web3.eth.accounts.privateKeyToAccount(privKey);
 console.log(account);
 
 const logService = new LogService(winston);
-const stateManager = new StateManager(logService);
-const contractService = new ContractService(web3, stateManager);
+const contractService = new ContractService(web3);
+const stateManager = new StateManager(logService, contractService);
 const eventWatcher = new EventWatcher(logService, contractService);
 
 eventWatcher.subscribeToBlocks(null);

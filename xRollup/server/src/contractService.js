@@ -1,15 +1,15 @@
 module.exports = class ContractService {
-    constructor(web3, web3Wallet, stateManager) {
+    constructor(web3, web3Wallet) {
         this.web3 = web3;
         this.web3Wallet = web3Wallet;
-        this.stateManager = stateManager;
 
         this.ethAccount = this.web3.eth.accounts[0];
         console.log(this.ethAccount);
 
-        // const abi = "";
-        // const address = "";
-        // this.mainContract = new this.web3.eth.Contract(abi, address);
+        const abi = require('../build/contracts/Main.json').abi;
+        const address = "0x89145Fac5fe2Fcc36814fC50273F5c3Af5Bba531";
+        console.log("address", address);
+        this.mainContract = new this.web3.eth.Contract(abi, address);
         //TODO: set main service
     }
 
@@ -33,14 +33,14 @@ module.exports = class ContractService {
     }
 
     setState(newState) {
-        this.mainContract.methods.setState(newState).send({ from: this.ethAccount })
+        this.mainContract.methods.setState(newState).send()
             .then((receipt) => {
                 // receipt can also be a new contract instance, when coming from a "contract.deploy({...}).send()"
             });
     }
 
-    withdraw(to, amount, proof, newState) {
-        this.mainContract.methods.withdraw(to, amount, proof, newState).send({ from: this.ethAccount })
+    withdrawToken(token, to, amount, proof, newState) {
+        this.mainContract.methods.withdrawToken(token, to, amount, proof, newState).send()
         .then((receipt) => {
             // receipt can also be a new contract instance, when coming from a "contract.deploy({...}).send()"
         });

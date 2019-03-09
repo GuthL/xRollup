@@ -25,7 +25,7 @@ module.exports = {
       provider: function() {
         return new HDWalletProvider(mnemonic, `https://rinkeby.infura.io/${infuraAccessToken}`)
       },
-      network_id: 4,
+      network_id: "*",
     }
   }
 };
