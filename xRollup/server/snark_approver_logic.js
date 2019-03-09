@@ -10,15 +10,20 @@ function castBigInt(){
 
 }
 
-function verifyTransfer(batchTransactions, tree){	
+function MerkleTree(leafs){
+	for 
+}
+
+function verifyTransfer(batchTransactions, leafsSet){	
 	for (t in batchTransactions){
-		const old_account_from = MIMC.multiHash([t.pubkey[0],t.token_balance_from,t.nonce,token_type]);
-		const old_proof_from = tree.getProof(account_from)
 
-		const old_account_to = MIMC.multiHash([t.to[0],t.token_balance_to,t.nonce_to,token_type_to]);
-		const old_proof_to = tree.getProof(account_to)
+		const old_account_from = MIMC.multiHash([t.pubkey[0],t.token_balance_from,t.nonce,t.token_type]);
+		assert(leafsSet.contains(old_account_from));
 
-		const msg = MIMC.multiHash[old_account_from, old_account_to];
+		const old_account_to = MIMC.multiHash([t.to[0],t.token_balance_to,t.nonce_to,t.token_type_to]);
+		assert(leafsSet.contains(old_account_to));
+
+		const msg = MIMC.multiHash([old_account_from, old_account_to]);
 
 		assert(eddsa.verifyMiMC(t.pubKey, [t.R8x, t.R8y, t.S], msg));
 
@@ -27,6 +32,9 @@ function verifyTransfer(batchTransactions, tree){
 
 		assert(t.nonce_from < NONCE_MAX_VALUE);
 		assert(t.token_type_from == t.token_type_to);
+
+		const tree = new MerkleTree(leaves, MIMC.multiHash)
+
 
 
 	}	

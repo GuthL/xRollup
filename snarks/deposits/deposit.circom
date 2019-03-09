@@ -1,6 +1,6 @@
-include "./circuits/mimc.circom";
-include "./circuits/eddsamimc.circom";
-include "./circuits/bitify.circom";
+include "../circomlib/circuits/mimc.circom";
+include "../circomlib/circuits/eddsamimc.circom";
+include "../circomlib/circuits/bitify.circom";
 
 template Main(n,k) {
     signal input current_state;
@@ -33,6 +33,7 @@ template Main(n,k) {
     component new_merkle[k][n-1];
     
     var tmp_state = current_state;
+    var tmp_index = last_index;
     //get path to root
     for (i=0;i<k;i++){
         n2b[i] = Num2Bits(n-1);
@@ -72,7 +73,7 @@ template Main(n,k) {
         tmp_state = new_merkle[i][n-2].out
         }
     
-    out <== new_merkle[k-1][n-2].out;
+    new_state <== new_merkle[k-1][n-2].out;
     new_index <== last_index+k;
 
     }
