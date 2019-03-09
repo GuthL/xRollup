@@ -10,9 +10,6 @@ const StateManager = require('./stateManager');
 const LogService = require('./logService');
 const ContractService = require('./contractService');
 
-// ENV Variables
-const PORT = 3000;
-
 // Logging Setup
 const files = new winston.transports.File({ filename: 'logfile.log' });
 const myconsole = new winston.transports.Console();
@@ -110,9 +107,14 @@ var server = jayson.server({
     },
 });
 
-server.http().listen(PORT);
+let port = process.env.PORT;
+if (port == null || port == "") {
+  port = 3000;
+}
+
+server.http().listen(port);
 
 // Create Client
 var client = jayson.client.http({
-    port: PORT
+    port: port
 });
