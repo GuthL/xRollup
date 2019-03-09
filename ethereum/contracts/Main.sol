@@ -36,7 +36,7 @@ contract Main is Ownable, Verifier {
         emit Deposit(msg.sender, _token, _amount);
     }
     
-    function withdrawToken(address _token, uint128 _amount) public {
+    function withdrawToken(address _token, address _recipient, uint128 _amount, uint256 _proof, uint256 _newState) public onlyOwner() {
         //TODO: We will get this value from the state
         require(tokenBalances[msg.sender][_token] >= _amount, "Attempt to withdraw more than user has");
 

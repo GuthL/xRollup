@@ -1,6 +1,5 @@
 module.exports = class EventWatcher {
-    constructor(web3, logService, contractService) {
-        this.web3 = web3;
+    constructor(logService, contractService) {
         this.logService = logService;
         this.contractService = contractService;
         // const mainInterface = require('../build/contracts/Main.json');
@@ -9,7 +8,7 @@ module.exports = class EventWatcher {
     }
 
     subscribeToBlocks(callback) {
-        const subscription = this.web3.eth.subscribe('newBlockHeaders', (error, blockHeader) => {
+        const subscription = this.contractService.getWeb3().eth.subscribe('newBlockHeaders', (error, blockHeader) => {
             if (error) return console.error(error);
             
             console.log('Successfully subscribed!', blockHeader);

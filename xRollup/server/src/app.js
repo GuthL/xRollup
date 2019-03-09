@@ -1,6 +1,7 @@
 // External Packages
 const winston = require('winston')
 const Web3 = require('web3');
+var HDWalletProvider = require("truffle-hdwallet-provider");
 var jayson = require('jayson');
 
 // Internal Services
@@ -26,11 +27,17 @@ winston.add(files);
 // });
 
 // Initialize Services
-const web3 = new Web3(new Web3.providers.WebsocketProvider('wss://mainnet.infura.io/ws'));
+const privKey = require('./config').privKey;
+
+// We have 2 web3 because you need websocket for subscriptions, but I don't know how to use mnemonic keys w/ websocket provider...
+var web3 = new Web3(new Web3.providers.WebsocketProvider('wss://mainnet.infura.io/ws'));
+const account = web3.eth.accounts.privateKeyToAccount(privKey);
+console.log(account);
+
 const logService = new LogService(winston);
 const stateManager = new StateManager(logService);
 const contractService = new ContractService(web3, stateManager);
-const eventWatcher = new EventWatcher(web3, logService, contractService);
+const eventWatcher = new EventWatcher(logService, contractService);
 
 eventWatcher.subscribeToBlocks(null);
 eventWatcher.subscribeToDeposit(null);
@@ -49,7 +56,38 @@ eventWatcher.subscribeToDeposit(null);
 var server = jayson.server({
     add: function (args, callback) {
         callback(null, args[0] + args[1]);
-    }
+    },
+    eth_sendTransaction: function (args, callback) {
+        let result = "";
+        switch (args[0]) {
+            case "transfer":
+                result = "transfer";
+                stateManager.transfer(1, 1, 1, 1);
+                break;
+            case "withdraw":
+                result = "withdraw";
+                stateManager.withdraw(1, 1, 1);
+                break;
+            default:
+                result = "unknown";
+                break;
+        }
+
+        callback(null, result);
+    },
+    eth_call: function (args, callback) {
+        let result = "";
+        switch (args[0]) {
+            case "getState":
+                result = stateManager.getState();
+                break;
+            default:
+                result = "unknown";
+                break;
+        }
+
+        callback(null, result);
+    },
 });
 
 server.http().listen(PORT);
@@ -57,10 +95,14 @@ server.http().listen(PORT);
 // Create Client
 var client = jayson.client.http({
     port: PORT
-  });
-  
-  // invoke "add"
-  client.request('add', [1, 1], function(err, response) {
-    if(err) throw err;
+});
+
+client.request('eth_sendTransaction', ["withdraw"], function (err, response) {
+    if (err) throw err;
     console.log(response.result); // 2
-  });
+});
+
+client.request('eth_call', ["getState"], function (err, response) {
+    if (err) throw err;
+    console.log(response.result); // 2
+});
