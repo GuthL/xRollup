@@ -1,2 +1,4 @@
 {"someKey":"some-value","level":"info","message":"Log Service Created"}
 {"level":"info","message":"[Ethereum] Deposit Found"}
+{"someKey":"some-value","level":"info","message":"Log Service Created"}
+{"level":"info","message":"[Ethereum] Deposit Found"}
