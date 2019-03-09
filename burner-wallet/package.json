@@ -5,6 +5,7 @@
   "dependencies": {
     "autolinker": "^2.2.1",
     "axios": "^0.18.0",
+    "babel-eslint": "^9.0.0",
     "babel-jest": "^23.6.0",
     "babel-loader": "^8.0.5",
     "base64url": "^3.0.1",
@@ -30,6 +31,7 @@
     "helmet": "^3.14.0",
     "i18next": "^13.1.5",
     "i18next-browser-languagedetector": "^2.2.4",
+    "jayson": "2.1.2",
     "jest": "^23.6.0",
     "jimp": "^0.6.0",
     "node-sass": "^4.11.0",
@@ -57,7 +59,8 @@
     "snarkjs": "0.1.11",
     "tabookey-gasless": "0.3.3",
     "web3": "1.0.0-beta.33",
-    "webpack-dev-server": "^3.1.14"
+    "webpack-dev-server": "^3.1.14",
+    "whatwg-fetch": "^3.0.0"
   },
   "scripts": {
     "start": "PORT=3000 react-scripts start",
