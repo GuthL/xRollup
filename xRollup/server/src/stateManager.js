@@ -7,6 +7,22 @@ module.exports = class StateManager {
         this.addressToPublicKeyMapping = {};
         this.nonces = {};
         this.tokenBalances = {};
+
+        var data = {
+            pubkey: "",
+            token_balance_from: "",
+            nonce: "",
+            token_type: "",
+            amount: "",
+            to: "",
+            token_balance_to: "",
+            nonce_to: "",
+            token_type_to: "",
+            msg: "",
+            R8x: "",
+            R8y: "",
+            S: ""
+        }
     }
 
     setPublicKey(address, publicKey) {
@@ -20,7 +36,7 @@ module.exports = class StateManager {
 
     setNonce(publicKey, nonce) {
         this.nonces[publicKey] = nonce;
-    } 
+    }
 
     getNonce(publicKey) {
         return this.nonces[publicKey] || 0;
@@ -58,30 +74,42 @@ module.exports = class StateManager {
                 newState: newState,
             });
         }
-        
+
     }
 
+    /*
+        Token Transfer
+
+        Params:
+            pubkey
+            token_balance_from
+            nonce
+            token_type
+            amount
+            to
+            token_balance_to
+            nonce_to
+            token_type_to
+            msg
+            R8x
+            R8y
+            S
+    */
+
     transfer(params) {
-        const to = params['to'];
-        const from = params['from'];
-        const tokenId = params['tokenId'];
-        const amount = params['amount'];
-        const signature = params['signature'];
-        const nonce = params['nonce'];
+        // TODO: Check if sender and reciever are in state
+        // TODO: Verify signature
 
-        // Check if sender and reciever are in state
+        // Transfer Balance
+        const senderBalance = getTokenBalance(params.pubkey, params.token_type);
+        const recipientBalance = getTokenBalance(params.to, params.token_type);
 
-
-        // Transfer Logic
-        const senderBalance = getTokenBalance(from, tokenId);
-        const recipientBalance = getTokenBalance(to, tokenId);
-
-        if (amount > senderBalance) {
-            throw new Error("Insufficent Balance", tokenId, to, from, amount);
+        if (params.amount > senderBalance) {
+            throw new Error("Insufficent Balance", params.token_type, params.to, params.pubkey, params.amount);
         }
 
-        senderBalance -= amount;
-        recipientBalance += amount;
+        senderBalance -= params.amount;
+        recipientBalance += params.amount;
 
         setTokenBalance(from, tokenId, senderBalance);
         setTokenBalance(to, tokenId, recipientBalance);
@@ -89,10 +117,10 @@ module.exports = class StateManager {
         // Compute Merkel Root
 
         this.logService.info('Transfer', {
-            tokenId: tokenId,
-            to: to,
-            from: from,
-            amount: amount,
+            tokenId: params.token_type,
+            to: params.to,
+            from: params.pubkey,
+            amount: params.amount,
         });
     }
 

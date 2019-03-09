@@ -66,12 +66,19 @@ var server = jayson.server({
             case "transfer":
                 result = "transfer";
                 stateManager.transfer({
-                    to: params.to,
-                    from: params.from, 
-                    tokenId: params.tokenId,
-                    amount: params.amount,
-                    signature: params.signature, 
+                    pubkey: params.pubkey,
+                    token_balance_from: params.token_balance_from,
                     nonce: params.nonce,
+                    token_type: params.token_type,
+                    amount: params.amount,
+                    to: params.to,
+                    token_balance_to: params.token_balance_to,
+                    nonce_to: params.nonce_to,
+                    token_type_to: params.token_type_to,
+                    msg: params.msg,
+                    R8x: params.R8x,
+                    R8y: params.R8y,
+                    S: params.S
                 });
                 break;
             default:
@@ -83,9 +90,16 @@ var server = jayson.server({
     },
     eth_call: function (args, callback) {
         let result = "";
+        const params = args[1];
         switch (args[0]) {
             case "getState":
                 result = stateManager.getState();
+                break;
+                case "getBalance":
+                result = stateManager.getTokenBalance({
+                    publicKey: params.pubkey,
+                    token: params.token_type,
+                });
                 break;
             default:
                 result = "unknown";
