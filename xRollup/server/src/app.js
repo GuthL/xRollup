@@ -4,14 +4,15 @@ const Web3 = require('web3');
 var HDWalletProvider = require("truffle-hdwallet-provider");
 var jayson = require('jayson');
 
+if (process.env.NODE_ENV !== 'production') {
+    require('dotenv').load();
+}
+
 // Internal Services
 const EventWatcher = require('./eventWatcher');
 const StateManager = require('./stateManager');
 const LogService = require('./logService');
 const ContractService = require('./contractService');
-
-// ENV Variables
-const PORT = 3000;
 
 // Logging Setup
 const files = new winston.transports.File({ filename: 'logfile.log' });
@@ -27,7 +28,7 @@ winston.add(files);
 // });
 
 // Initialize Services
-const privKey = require('./config').privKey;
+const privKey = process.env.WALLET_PRIVKEY;
 
 // We have 2 web3 because you need websocket for subscriptions, but I don't know how to use mnemonic keys w/ websocket provider...
 var web3 = new Web3(new Web3.providers.WebsocketProvider('wss://rinkeby.infura.io/ws'));
@@ -95,7 +96,7 @@ var server = jayson.server({
             case "getState":
                 result = stateManager.getState();
                 break;
-                case "getBalance":
+            case "getBalance":
                 result = stateManager.getTokenBalance({
                     publicKey: params.pubkey,
                     token: params.token_type,
@@ -110,9 +111,14 @@ var server = jayson.server({
     },
 });
 
-server.http().listen(PORT);
+let port = process.env.PORT;
+if (port == null || port == "") {
+    port = 3000;
+}
+
+server.http().listen(port);
 
 // Create Client
 var client = jayson.client.http({
-    port: PORT
+    port: port
 });

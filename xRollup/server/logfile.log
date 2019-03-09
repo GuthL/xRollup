@@ -94,3 +94,12 @@
 {"level":"info","message":"Deposit"}
 {"level":"info","message":"[Ethereum] Deposit"}
 {"level":"info","message":"Deposit"}
+{"someKey":"some-value","level":"info","message":"Log Service Created"}
+{"level":"info","message":"[Ethereum] Deposit"}
+{"level":"info","message":"Deposit"}
+{"level":"info","message":"[Ethereum] Deposit"}
+{"level":"info","message":"Deposit"}
+{"level":"info","message":"[Ethereum] Deposit"}
+{"level":"info","message":"Deposit"}
+{"level":"info","message":"[Ethereum] Deposit"}
+{"level":"info","message":"Deposit"}
