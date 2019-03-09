@@ -34,3 +34,11 @@ export const getBalance = async (xRollupPubKey, address) => {
   ])
   return result
 }
+
+export const getNonce = async (xRollupPubKey, address) => {
+  const { result } = await client.request('eth_call', [
+    'getNonce',
+    { pubkey: xRollupPubKey, token_type: address },
+  ])
+  return result
+}
