@@ -6,7 +6,7 @@ const RollupToggle = props => (
     <Grid.Column width={2}>
       <Radio toggle defaultChecked={props.enabled} onChange={props.onChange} />
     </Grid.Column>
-    <Grid.Column width={4}>I'm feeling lucky!</Grid.Column>
+    <Grid.Column width={4}>Enable Rollup!</Grid.Column>
   </Grid>
 )
 
