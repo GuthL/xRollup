@@ -279,7 +279,7 @@ class App extends Component {
       hasUpdateOnce: false,
       badges: {},
       selectedBadge: false,
-      enableRollup: false,
+      isRollupEnabled: false,
     }
     this.alertTimeout = null
 
@@ -937,7 +937,7 @@ class App extends Component {
   goBack() {
     console.log('GO BACK')
     this.changeView('main')
-    this.setState({ enableRollup: false })
+    this.setState({ isRollupEnabled: false })
     setTimeout(() => {
       window.scrollTo(0, 0)
     }, 60)
@@ -1827,10 +1827,10 @@ class App extends Component {
                             {defaultBalanceDisplay}
 
                             <RollupToggle
-                              enabled={this.state.enableRollup}
+                              enabled={this.state.isRollupEnabled}
                               onChange={() =>
                                 this.setState({
-                                  enableRollup: !this.state.enableRollup,
+                                  isRollupEnabled: !this.state.isRollupEnabled,
                                 })
                               }
                             />
@@ -1852,6 +1852,7 @@ class App extends Component {
                               setReceipt={this.setReceipt}
                               changeAlert={this.changeAlert}
                               dollarDisplay={dollarDisplay}
+                              isRollupEnabled={this.state.isRollupEnabled}
                             />
                           </div>
                           <Bottom
