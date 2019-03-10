@@ -26,8 +26,11 @@ All the speed of a CEX, without giving exchanges (and their hackers) custodial c
 - State is pegged to smart contract on Ethereum mainnet regularly.
 - Proofs can be efficently executed on validator smart contracts, one for each zkSNARK.
 - Clients interact with the validators via JSON-RPC.
+
+
 ![Architecture Diagram](https://docs.google.com/uc?id=1HJa9jnb2yEYsP9xcIPQsgm0pWWrr7ysM)
 
+## Build
 ### Deploying the xRollup Burner Wallet
 
 ```sh
@@ -39,3 +42,8 @@ cd ..
 git subtree push --prefix burner-wallet/build origin gh-pages
 git push
 ```
+
+## Community 
+Community is important - we want to share the potential of znSnarks with the world.
+To that end we have a tutorial, and will be expanding it with the knowledge gained from the hackathon.
+
