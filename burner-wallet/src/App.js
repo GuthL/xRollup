@@ -1646,26 +1646,6 @@ class App extends Component {
                                     generateRollupPublicKey()
                                   )
                                 }
-
-                                /*
-                                 * Lock some ETH on the xRollup smart contract
-                                 */
-                                 const contract = new this.state.web3.eth.Contract(
-                                   xRollupABI, xRollupContractAddress, {
-                                     from: this.state.account
-                                   }
-                                 )
-
-                                 const xRollupPublicKey = localStorage.getItem('xRollupPublicKey').split(',').map(k => snarkjs.bigInt(k).toString())
-                                 contract.methods.registerKey(...xRollupPublicKey).send({
-                                   from: this.state.account
-                                 }).on('transactionHash', (hash) => {
-                                    console.log(hash)
-                                  })
-                                  .on('receipt', (receipt) => {
-                                      console.log(receipt)
-                                  })
-                                  .on('error', console.error);
                               }
                             }
                           />
