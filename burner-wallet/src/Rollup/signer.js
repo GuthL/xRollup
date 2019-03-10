@@ -4,11 +4,11 @@ const circomlib = require('circomlib')
 const eddsa = circomlib.eddsa
 const mimcjs = circomlib.mimc7
 
-const signer = props => {
+const signer = (toAddress, amount) => {
   const xRollupPrivateKey = localStorage.getItem('xRollupPrivateKey')
   const xRollupPubKey = eddsa.prv2pub(xRollupPrivateKey)
 
-  const pubKey_to = props.toAddress
+  const pubKey_to = toAddress
 
   const token_type_from = 'XXXX' // example, DAI samrt contract address
   const token_type_to = 'XXXX' // example, DAI samrt contract address
@@ -18,8 +18,6 @@ const signer = props => {
 
   const token_balance_from = getBalance(xRollupPubKey, token_type_from)
   const token_balance_to = getBalance(xRollupPubKey, token_type_to)
-
-  const amount = props.amount
 
   const old_hash_leaf_from = mimcjs.multiHash([
     xRollupPubKey[0],
