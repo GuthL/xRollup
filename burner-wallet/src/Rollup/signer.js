@@ -39,7 +39,7 @@ const signer = (toAddress, amount) => {
   const signature = eddsa.signMiMC(xRollupPrivateKey, old_hash_leaf_from)
 
   return {
-    pubkey: xRollupPublicKey.map(x => x.toString()),
+    pubkey: xRollupPublicKey,
     token_balance_from: token_balance_from.toString(),
     nonce: nonce_from.toString(),
     token_type: token_type_from.toString(),
