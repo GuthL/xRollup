@@ -1,6 +1,6 @@
-include "../circomlib/circuits/mimc.circom";
-include "../circomlib/circuits/eddsamimc.circom";
-include "../circomlib/circuits/bitify.circom";
+include "./circuits/mimc.circom";
+include "./circuits/eddsamimc.circom";
+include "./circuits/bitify.circom";
 
 template Main(n,k) {
     signal input current_state;
@@ -12,11 +12,9 @@ template Main(n,k) {
     signal input token_type[k];
 
     signal private input paths2root[k][n-1];
-    
-    // Needed to avoid a DDoS
-    // signal private input R8x[k];
-    // signal private input R8y[k];
-    // signal private input S[k];
+    signal private input R8x[k];
+    signal private input R8y[k];
+    signal private input S[k];
 
     signal output new_state;
     signal output new_index;
@@ -33,10 +31,8 @@ template Main(n,k) {
     component n2b[k];
     component old_merkle[k][n-1];
     component new_merkle[k][n-1];
-    component verifier[k]
     
     var tmp_state = current_state;
-    var tmp_index = last_index;
     //get path to root
     for (i=0;i<k;i++){
         n2b[i] = Num2Bits(n-1);
@@ -58,16 +54,6 @@ template Main(n,k) {
 
         tmp_state === old_merkle[i][n-2].out;
 
-        // Needed to avoid a DDoS
-        // verifier[i] = EdDSAMiMCVerifier();   
-        // verifier[i].enabled <== 1;
-        // verifier[i].Ax <== pubkey[i][0];
-        // verifier[i].Ay <== pubkey[i][1];
-        // verifier[i].R8x <== R8x[i];
-        // verifier[i].R8y <== R8y[i];
-        // verifier[i].S <== S[i];
-        // verifier[i].M <== pubkey[i][0];
-
         new_hash[i] = MultiMiMC7(4,91);
         new_hash[i].in[0] <== pubkey[i][0];
         new_hash[i].in[1] <== deposit[i];
@@ -86,7 +72,7 @@ template Main(n,k) {
         tmp_state = new_merkle[i][n-2].out
         }
     
-    new_state <== new_merkle[k-1][n-2].out;
+    out <== new_merkle[k-1][n-2].out;
     new_index <== last_index+k;
 
     }
