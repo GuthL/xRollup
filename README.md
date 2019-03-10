@@ -21,12 +21,15 @@ While being a hot topic, there is no current wallet capable of handling the elli
 
 By extending the burner wallet, we brigded the gap.
 
-## Projects
+We also implemented an centralized approver to bring even more settlements, while offering a transparent notion of trust of settlement.
+
+## Use Cases
 ### Sidechain Payments
 Cheap & Fast payments as found in other layer 2 solutions
 
 ### Non-custodial centralized exchange.
 All the speed of a CEX, without giving exchanges (and their hackers) custodial control of your funds.
+We are able to bring 34000 tps under this assumption, all with onchain settlement.
 
 ## Architecture
 - Our current implementation features a centralized validator node. The "One node blockchain". This can be expanded to a consensus mechanism.
@@ -56,4 +59,3 @@ To that end we have a tutorial, and will be expanding it with the knowledge gain
 We added the deposit and withdraw mecanism for the SNARK part, part of the approver logic and the deposit mecanism on the Smart Contract.
 
 [Expanded tutorial](https://github.com/GuthL/roll_up_circom_tutorial)
-
