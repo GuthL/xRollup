@@ -13,14 +13,14 @@ const signer = (toAddress, amount) => {
 
   const pubKey_to = toAddress
 
-  const token_type_from = 'XXXX' // example, DAI samrt contract address
-  const token_type_to = 'XXXX' // example, DAI samrt contract address
+  const token_type_from = 1
+  const token_type_to = 1
 
-  const nonce_from = getNonce(xRollupPublicKey, token_type_from)
-  const nonce_to = getNonce(xRollupPublicKey, token_type_from)
+  const nonce_from = 0 //getNonce(xRollupPublicKey, token_type_from)
+  const nonce_to = 1 //getNonce(xRollupPublicKey, token_type_from)
 
-  const token_balance_from = getBalance(xRollupPublicKey, token_type_from)
-  const token_balance_to = getBalance(xRollupPublicKey, token_type_to)
+  const token_balance_from = 10 //getBalance(xRollupPublicKey, token_type_from)
+  const token_balance_to = 20 //getBalance(xRollupPublicKey, token_type_to)
 
   const old_hash_leaf_from = mimcjs.multiHash([
     xRollupPublicKey[0],
@@ -35,7 +35,7 @@ const signer = (toAddress, amount) => {
     token_type_to,
   ])
 
-  const msg = mimcjs.multiHash([old_hash_leaf_from, old_hash_leaf_to, amount])
+  const msg = mimcjs.multiHash([old_hash_leaf_from, old_hash_leaf_to, 100])
   const signature = eddsa.signMiMC(xRollupPrivateKey, old_hash_leaf_from)
 
   return {
