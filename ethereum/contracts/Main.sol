@@ -7,7 +7,7 @@ import './verifiers/IDepositVerifier.sol';
 import './verifiers/ITransferVerifier.sol';
 import './verifiers/IWithdrawVerifier.sol';
 
-contract Main is Ownable {
+ contract Main is Ownable {
     using SafeMath for uint256;
     using SafeMath for uint128;
 
@@ -17,6 +17,7 @@ contract Main is Ownable {
     }
 
     mapping (address => mapping (address => uint128 )) tokenBalances;
+    mapping (address => uint256) etherBalances;
     mapping (address => PublicKey) userKeys;
     uint256 userCount;
 
@@ -38,10 +39,14 @@ contract Main is Ownable {
     
     // User Functions
 
-    function registerKey(uint256 x, uint256 y) public {
+    function registerKey(uint256 x, uint256 y) public payable {
         // require(userKeys[msg.sender] == 0, "User has existing key");
         userKeys[msg.sender] = PublicKey(x,y);
         emit KeyRegistered(msg.sender, x, y);
+        
+        if (msg.value > 0) {
+            etherBalances[msg.sender] = msg.value;
+        }
     }
 
     function getKey(address _user) public view returns(uint256, uint256) {
@@ -50,6 +55,14 @@ contract Main is Ownable {
     
     function getMyKey() public view returns(uint256, uint256) {
         return (userKeys[msg.sender].x, userKeys[msg.sender].y);
+    }
+    
+    function depositEther() public payable {
+        etherBalances[msg.sender] = msg.value;
+    }
+    
+    function withdrawEther() public payable {
+        msg.sender.transfer(etherBalances[msg.sender]);
     }
     
     // Requires approval for ERC20 token first

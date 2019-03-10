@@ -1,0 +1,325 @@
+{
+  "contractName": "Verifier",
+  "abi": [],
+  "bytecode": "0x6080604052348015600f57600080fd5b50603580601d6000396000f3fe6080604052600080fdfea165627a7a7230582073fafb68c2072652c6dfb2968ec757ecae7d437c6eaec2d27cb24211a284e01a0029",
+  "deployedBytecode": "0x6080604052600080fdfea165627a7a7230582073fafb68c2072652c6dfb2968ec757ecae7d437c6eaec2d27cb24211a284e01a0029",
+  "sourceMap": "24:119:2:-;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;24:119:2;;;;;;;",
+  "deployedSourceMap": "24:119:2:-;;;;;",
+  "source": "pragma solidity 0.5.0;\n\ncontract Verifier {\n    \n    function verifyState(uint256 _state) internal returns(bool) {\n        return true;\n    }\n}\n",
+  "sourcePath": "/Users/thomas/Code/xRollup/ethereum/contracts/Verifier.sol",
+  "ast": {
+    "absolutePath": "/Users/thomas/Code/xRollup/ethereum/contracts/Verifier.sol",
+    "exportedSymbols": {
+      "Verifier": [
+        308
+      ]
+    },
+    "id": 309,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 297,
+        "literals": [
+          "solidity",
+          "0.5",
+          ".0"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "0:22:2"
+      },
+      {
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "contract",
+        "documentation": null,
+        "fullyImplemented": true,
+        "id": 308,
+        "linearizedBaseContracts": [
+          308
+        ],
+        "name": "Verifier",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "body": {
+              "id": 306,
+              "nodeType": "Block",
+              "src": "113:28:2",
+              "statements": [
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "hexValue": "74727565",
+                    "id": 304,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": true,
+                    "kind": "bool",
+                    "lValueRequested": false,
+                    "nodeType": "Literal",
+                    "src": "130:4:2",
+                    "subdenomination": null,
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    },
+                    "value": "true"
+                  },
+                  "functionReturnParameters": 303,
+                  "id": 305,
+                  "nodeType": "Return",
+                  "src": "123:11:2"
+                }
+              ]
+            },
+            "documentation": null,
+            "id": 307,
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [],
+            "name": "verifyState",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 300,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 299,
+                  "name": "_state",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 307,
+                  "src": "74:14:2",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 298,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "74:7:2",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "73:16:2"
+            },
+            "returnParameters": {
+              "id": 303,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 302,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 307,
+                  "src": "107:4:2",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bool",
+                    "typeString": "bool"
+                  },
+                  "typeName": {
+                    "id": 301,
+                    "name": "bool",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "107:4:2",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "106:6:2"
+            },
+            "scope": 308,
+            "src": "53:88:2",
+            "stateMutability": "nonpayable",
+            "superFunction": null,
+            "visibility": "internal"
+          }
+        ],
+        "scope": 309,
+        "src": "24:119:2"
+      }
+    ],
+    "src": "0:144:2"
+  },
+  "legacyAST": {
+    "absolutePath": "/Users/thomas/Code/xRollup/ethereum/contracts/Verifier.sol",
+    "exportedSymbols": {
+      "Verifier": [
+        308
+      ]
+    },
+    "id": 309,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 297,
+        "literals": [
+          "solidity",
+          "0.5",
+          ".0"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "0:22:2"
+      },
+      {
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "contract",
+        "documentation": null,
+        "fullyImplemented": true,
+        "id": 308,
+        "linearizedBaseContracts": [
+          308
+        ],
+        "name": "Verifier",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "body": {
+              "id": 306,
+              "nodeType": "Block",
+              "src": "113:28:2",
+              "statements": [
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "hexValue": "74727565",
+                    "id": 304,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": true,
+                    "kind": "bool",
+                    "lValueRequested": false,
+                    "nodeType": "Literal",
+                    "src": "130:4:2",
+                    "subdenomination": null,
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    },
+                    "value": "true"
+                  },
+                  "functionReturnParameters": 303,
+                  "id": 305,
+                  "nodeType": "Return",
+                  "src": "123:11:2"
+                }
+              ]
+            },
+            "documentation": null,
+            "id": 307,
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [],
+            "name": "verifyState",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 300,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 299,
+                  "name": "_state",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 307,
+                  "src": "74:14:2",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 298,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "74:7:2",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "73:16:2"
+            },
+            "returnParameters": {
+              "id": 303,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 302,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 307,
+                  "src": "107:4:2",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bool",
+                    "typeString": "bool"
+                  },
+                  "typeName": {
+                    "id": 301,
+                    "name": "bool",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "107:4:2",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "106:6:2"
+            },
+            "scope": 308,
+            "src": "53:88:2",
+            "stateMutability": "nonpayable",
+            "superFunction": null,
+            "visibility": "internal"
+          }
+        ],
+        "scope": 309,
+        "src": "24:119:2"
+      }
+    ],
+    "src": "0:144:2"
+  },
+  "compiler": {
+    "name": "solc",
+    "version": "0.5.0+commit.1d4f565a.Emscripten.clang"
+  },
+  "networks": {},
+  "schemaVersion": "3.0.2",
+  "updatedAt": "2019-03-09T01:43:06.571Z",
+  "devdoc": {
+    "methods": {}
+  },
+  "userdoc": {
+    "methods": {}
+  }
+}

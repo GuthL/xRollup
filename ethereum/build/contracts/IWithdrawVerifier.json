@@ -1,0 +1,725 @@
+{
+  "contractName": "IWithdrawVerifier",
+  "abi": [
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "a",
+          "type": "uint256[2]"
+        },
+        {
+          "name": "b",
+          "type": "uint256[2][2]"
+        },
+        {
+          "name": "c",
+          "type": "uint256[2]"
+        },
+        {
+          "name": "input",
+          "type": "uint256[8]"
+        }
+      ],
+      "name": "verifyProof",
+      "outputs": [
+        {
+          "name": "r",
+          "type": "bool"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ],
+  "bytecode": "0x",
+  "deployedBytecode": "0x",
+  "sourceMap": "",
+  "deployedSourceMap": "",
+  "source": "pragma solidity ^0.5.0;\n\ninterface IWithdrawVerifier {\n    function verifyProof(uint[2] calldata a, uint[2][2] calldata b, uint[2] calldata c, uint[8] calldata input) view external returns (bool r);\n}",
+  "sourcePath": "/Users/thomas/Code/xRollup/ethereum/contracts/verifiers/IWithdrawVerifier.sol",
+  "ast": {
+    "absolutePath": "/Users/thomas/Code/xRollup/ethereum/contracts/verifiers/IWithdrawVerifier.sol",
+    "exportedSymbols": {
+      "IWithdrawVerifier": [
+        693
+      ]
+    },
+    "id": 694,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 669,
+        "literals": [
+          "solidity",
+          "^",
+          "0.5",
+          ".0"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "0:23:4"
+      },
+      {
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "interface",
+        "documentation": null,
+        "fullyImplemented": false,
+        "id": 693,
+        "linearizedBaseContracts": [
+          693
+        ],
+        "name": "IWithdrawVerifier",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "body": null,
+            "documentation": null,
+            "id": 692,
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "verifyProof",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 688,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 673,
+                  "name": "a",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 692,
+                  "src": "80:18:4",
+                  "stateVariable": false,
+                  "storageLocation": "calldata",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_array$_t_uint256_$2_calldata_ptr",
+                    "typeString": "uint256[2]"
+                  },
+                  "typeName": {
+                    "baseType": {
+                      "id": 670,
+                      "name": "uint",
+                      "nodeType": "ElementaryTypeName",
+                      "src": "80:4:4",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      }
+                    },
+                    "id": 672,
+                    "length": {
+                      "argumentTypes": null,
+                      "hexValue": "32",
+                      "id": 671,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "kind": "number",
+                      "lValueRequested": false,
+                      "nodeType": "Literal",
+                      "src": "85:1:4",
+                      "subdenomination": null,
+                      "typeDescriptions": {
+                        "typeIdentifier": null,
+                        "typeString": null
+                      },
+                      "value": "2"
+                    },
+                    "nodeType": "ArrayTypeName",
+                    "src": "80:7:4",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_array$_t_uint256_$2_storage_ptr",
+                      "typeString": "uint256[2]"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 679,
+                  "name": "b",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 692,
+                  "src": "100:21:4",
+                  "stateVariable": false,
+                  "storageLocation": "calldata",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_array$_t_array$_t_uint256_$2_calldata_$2_calldata_ptr",
+                    "typeString": "uint256[2][2]"
+                  },
+                  "typeName": {
+                    "baseType": {
+                      "baseType": {
+                        "id": 674,
+                        "name": "uint",
+                        "nodeType": "ElementaryTypeName",
+                        "src": "100:4:4",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      },
+                      "id": 676,
+                      "length": {
+                        "argumentTypes": null,
+                        "hexValue": "32",
+                        "id": 675,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": false,
+                        "kind": "number",
+                        "lValueRequested": false,
+                        "nodeType": "Literal",
+                        "src": "105:1:4",
+                        "subdenomination": null,
+                        "typeDescriptions": {
+                          "typeIdentifier": null,
+                          "typeString": null
+                        },
+                        "value": "2"
+                      },
+                      "nodeType": "ArrayTypeName",
+                      "src": "100:7:4",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_array$_t_uint256_$2_storage_ptr",
+                        "typeString": "uint256[2]"
+                      }
+                    },
+                    "id": 678,
+                    "length": {
+                      "argumentTypes": null,
+                      "hexValue": "32",
+                      "id": 677,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "kind": "number",
+                      "lValueRequested": false,
+                      "nodeType": "Literal",
+                      "src": "108:1:4",
+                      "subdenomination": null,
+                      "typeDescriptions": {
+                        "typeIdentifier": null,
+                        "typeString": null
+                      },
+                      "value": "2"
+                    },
+                    "nodeType": "ArrayTypeName",
+                    "src": "100:10:4",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_array$_t_array$_t_uint256_$2_storage_$2_storage_ptr",
+                      "typeString": "uint256[2][2]"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 683,
+                  "name": "c",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 692,
+                  "src": "123:18:4",
+                  "stateVariable": false,
+                  "storageLocation": "calldata",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_array$_t_uint256_$2_calldata_ptr",
+                    "typeString": "uint256[2]"
+                  },
+                  "typeName": {
+                    "baseType": {
+                      "id": 680,
+                      "name": "uint",
+                      "nodeType": "ElementaryTypeName",
+                      "src": "123:4:4",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      }
+                    },
+                    "id": 682,
+                    "length": {
+                      "argumentTypes": null,
+                      "hexValue": "32",
+                      "id": 681,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "kind": "number",
+                      "lValueRequested": false,
+                      "nodeType": "Literal",
+                      "src": "128:1:4",
+                      "subdenomination": null,
+                      "typeDescriptions": {
+                        "typeIdentifier": null,
+                        "typeString": null
+                      },
+                      "value": "2"
+                    },
+                    "nodeType": "ArrayTypeName",
+                    "src": "123:7:4",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_array$_t_uint256_$2_storage_ptr",
+                      "typeString": "uint256[2]"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 687,
+                  "name": "input",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 692,
+                  "src": "143:22:4",
+                  "stateVariable": false,
+                  "storageLocation": "calldata",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_array$_t_uint256_$8_calldata_ptr",
+                    "typeString": "uint256[8]"
+                  },
+                  "typeName": {
+                    "baseType": {
+                      "id": 684,
+                      "name": "uint",
+                      "nodeType": "ElementaryTypeName",
+                      "src": "143:4:4",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      }
+                    },
+                    "id": 686,
+                    "length": {
+                      "argumentTypes": null,
+                      "hexValue": "38",
+                      "id": 685,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "kind": "number",
+                      "lValueRequested": false,
+                      "nodeType": "Literal",
+                      "src": "148:1:4",
+                      "subdenomination": null,
+                      "typeDescriptions": {
+                        "typeIdentifier": null,
+                        "typeString": null
+                      },
+                      "value": "8"
+                    },
+                    "nodeType": "ArrayTypeName",
+                    "src": "143:7:4",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_array$_t_uint256_$8_storage_ptr",
+                      "typeString": "uint256[8]"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "79:87:4"
+            },
+            "returnParameters": {
+              "id": 691,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 690,
+                  "name": "r",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 692,
+                  "src": "190:6:4",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bool",
+                    "typeString": "bool"
+                  },
+                  "typeName": {
+                    "id": 689,
+                    "name": "bool",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "190:4:4",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "189:8:4"
+            },
+            "scope": 693,
+            "src": "59:139:4",
+            "stateMutability": "view",
+            "superFunction": null,
+            "visibility": "external"
+          }
+        ],
+        "scope": 694,
+        "src": "25:175:4"
+      }
+    ],
+    "src": "0:200:4"
+  },
+  "legacyAST": {
+    "absolutePath": "/Users/thomas/Code/xRollup/ethereum/contracts/verifiers/IWithdrawVerifier.sol",
+    "exportedSymbols": {
+      "IWithdrawVerifier": [
+        693
+      ]
+    },
+    "id": 694,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 669,
+        "literals": [
+          "solidity",
+          "^",
+          "0.5",
+          ".0"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "0:23:4"
+      },
+      {
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "interface",
+        "documentation": null,
+        "fullyImplemented": false,
+        "id": 693,
+        "linearizedBaseContracts": [
+          693
+        ],
+        "name": "IWithdrawVerifier",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "body": null,
+            "documentation": null,
+            "id": 692,
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "verifyProof",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 688,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 673,
+                  "name": "a",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 692,
+                  "src": "80:18:4",
+                  "stateVariable": false,
+                  "storageLocation": "calldata",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_array$_t_uint256_$2_calldata_ptr",
+                    "typeString": "uint256[2]"
+                  },
+                  "typeName": {
+                    "baseType": {
+                      "id": 670,
+                      "name": "uint",
+                      "nodeType": "ElementaryTypeName",
+                      "src": "80:4:4",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      }
+                    },
+                    "id": 672,
+                    "length": {
+                      "argumentTypes": null,
+                      "hexValue": "32",
+                      "id": 671,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "kind": "number",
+                      "lValueRequested": false,
+                      "nodeType": "Literal",
+                      "src": "85:1:4",
+                      "subdenomination": null,
+                      "typeDescriptions": {
+                        "typeIdentifier": null,
+                        "typeString": null
+                      },
+                      "value": "2"
+                    },
+                    "nodeType": "ArrayTypeName",
+                    "src": "80:7:4",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_array$_t_uint256_$2_storage_ptr",
+                      "typeString": "uint256[2]"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 679,
+                  "name": "b",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 692,
+                  "src": "100:21:4",
+                  "stateVariable": false,
+                  "storageLocation": "calldata",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_array$_t_array$_t_uint256_$2_calldata_$2_calldata_ptr",
+                    "typeString": "uint256[2][2]"
+                  },
+                  "typeName": {
+                    "baseType": {
+                      "baseType": {
+                        "id": 674,
+                        "name": "uint",
+                        "nodeType": "ElementaryTypeName",
+                        "src": "100:4:4",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      },
+                      "id": 676,
+                      "length": {
+                        "argumentTypes": null,
+                        "hexValue": "32",
+                        "id": 675,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": false,
+                        "kind": "number",
+                        "lValueRequested": false,
+                        "nodeType": "Literal",
+                        "src": "105:1:4",
+                        "subdenomination": null,
+                        "typeDescriptions": {
+                          "typeIdentifier": null,
+                          "typeString": null
+                        },
+                        "value": "2"
+                      },
+                      "nodeType": "ArrayTypeName",
+                      "src": "100:7:4",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_array$_t_uint256_$2_storage_ptr",
+                        "typeString": "uint256[2]"
+                      }
+                    },
+                    "id": 678,
+                    "length": {
+                      "argumentTypes": null,
+                      "hexValue": "32",
+                      "id": 677,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "kind": "number",
+                      "lValueRequested": false,
+                      "nodeType": "Literal",
+                      "src": "108:1:4",
+                      "subdenomination": null,
+                      "typeDescriptions": {
+                        "typeIdentifier": null,
+                        "typeString": null
+                      },
+                      "value": "2"
+                    },
+                    "nodeType": "ArrayTypeName",
+                    "src": "100:10:4",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_array$_t_array$_t_uint256_$2_storage_$2_storage_ptr",
+                      "typeString": "uint256[2][2]"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 683,
+                  "name": "c",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 692,
+                  "src": "123:18:4",
+                  "stateVariable": false,
+                  "storageLocation": "calldata",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_array$_t_uint256_$2_calldata_ptr",
+                    "typeString": "uint256[2]"
+                  },
+                  "typeName": {
+                    "baseType": {
+                      "id": 680,
+                      "name": "uint",
+                      "nodeType": "ElementaryTypeName",
+                      "src": "123:4:4",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      }
+                    },
+                    "id": 682,
+                    "length": {
+                      "argumentTypes": null,
+                      "hexValue": "32",
+                      "id": 681,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "kind": "number",
+                      "lValueRequested": false,
+                      "nodeType": "Literal",
+                      "src": "128:1:4",
+                      "subdenomination": null,
+                      "typeDescriptions": {
+                        "typeIdentifier": null,
+                        "typeString": null
+                      },
+                      "value": "2"
+                    },
+                    "nodeType": "ArrayTypeName",
+                    "src": "123:7:4",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_array$_t_uint256_$2_storage_ptr",
+                      "typeString": "uint256[2]"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 687,
+                  "name": "input",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 692,
+                  "src": "143:22:4",
+                  "stateVariable": false,
+                  "storageLocation": "calldata",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_array$_t_uint256_$8_calldata_ptr",
+                    "typeString": "uint256[8]"
+                  },
+                  "typeName": {
+                    "baseType": {
+                      "id": 684,
+                      "name": "uint",
+                      "nodeType": "ElementaryTypeName",
+                      "src": "143:4:4",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      }
+                    },
+                    "id": 686,
+                    "length": {
+                      "argumentTypes": null,
+                      "hexValue": "38",
+                      "id": 685,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "kind": "number",
+                      "lValueRequested": false,
+                      "nodeType": "Literal",
+                      "src": "148:1:4",
+                      "subdenomination": null,
+                      "typeDescriptions": {
+                        "typeIdentifier": null,
+                        "typeString": null
+                      },
+                      "value": "8"
+                    },
+                    "nodeType": "ArrayTypeName",
+                    "src": "143:7:4",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_array$_t_uint256_$8_storage_ptr",
+                      "typeString": "uint256[8]"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "79:87:4"
+            },
+            "returnParameters": {
+              "id": 691,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 690,
+                  "name": "r",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 692,
+                  "src": "190:6:4",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bool",
+                    "typeString": "bool"
+                  },
+                  "typeName": {
+                    "id": 689,
+                    "name": "bool",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "190:4:4",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "189:8:4"
+            },
+            "scope": 693,
+            "src": "59:139:4",
+            "stateMutability": "view",
+            "superFunction": null,
+            "visibility": "external"
+          }
+        ],
+        "scope": 694,
+        "src": "25:175:4"
+      }
+    ],
+    "src": "0:200:4"
+  },
+  "compiler": {
+    "name": "solc",
+    "version": "0.5.0+commit.1d4f565a.Emscripten.clang"
+  },
+  "networks": {},
+  "schemaVersion": "3.0.2",
+  "updatedAt": "2019-03-10T01:40:18.248Z",
+  "devdoc": {
+    "methods": {}
+  },
+  "userdoc": {
+    "methods": {}
+  }
+}
