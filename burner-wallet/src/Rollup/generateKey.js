@@ -15,7 +15,5 @@ export const generateRollupPrivateKey = hashFn => {
 
 export const generateRollupPublicKey = () => {
   const xRollupPrivateKey = localStorage.getItem('xRollupPrivateKey')
-  const foo = eddsa.prv2pub(xRollupPrivateKey)
-  console.log(foo)
-  return foo
+  return eddsa.prv2pub(xRollupPrivateKey)
 }
