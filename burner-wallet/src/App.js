@@ -114,6 +114,12 @@ if (
     WEB3_PROVIDER = 'http://localhost:8545'
     LOADERIMAGE = bufficorn
   }
+} else if (window.location.hostname.indexOf('.github.io') >= 0 ) {
+  WEB3_PROVIDER =
+    'https://rinkeby.infura.io/v3/c1566c578ccb46308e5794173d45d300'
+  CLAIM_RELAY = false
+  ERC20TOKEN = false
+
 } else if (window.location.hostname.indexOf('s.xdai.io') >= 0) {
   WEB3_PROVIDER = POA_XDAI_NODE
   CLAIM_RELAY = 'https://x.xdai.io'
@@ -156,7 +162,7 @@ if (
   ERC20IMAGE = false
 }
 
-if (ERC20NAME == 'BUFF') {
+if (ERC20NAME === 'BUFF') {
   mainStyle.backgroundImage = 'linear-gradient(#540d48, #20012d)'
   mainStyle.backgroundColor = '#20012d'
   mainStyle.mainColor = '#b6299e'
@@ -173,7 +179,7 @@ if (ERC20NAME == 'BUFF') {
       }}
     />
   )
-} else if (ERC20NAME == 'BURN') {
+} else if (ERC20NAME === 'BURN') {
   mainStyle.backgroundImage = 'linear-gradient(#4923d8, #6c0664)'
   mainStyle.backgroundColor = '#6c0664'
   mainStyle.mainColor = '#e72da3'
@@ -250,7 +256,7 @@ class App extends Component {
     let cachedViewSetAge = Date.now() - localStorage.getItem('viewSetTime')
     if (HARDCODEVIEW) {
       view = HARDCODEVIEW
-    } else if (cachedViewSetAge < 300000 && cachedView && cachedView != 0) {
+    } else if (cachedViewSetAge < 300000 && cachedView && cachedView !== 0) {
       view = cachedView
     }
     console.log('CACHED VIEW', view)
@@ -376,10 +382,10 @@ class App extends Component {
         )
         this.setState({ possibleNewPrivateKey: rawPK })
         window.history.pushState({}, '', '/')
-      } else if (window.location.pathname.length == 43) {
+      } else if (window.location.pathname.length === 43) {
         this.changeView('send_to_address')
         console.log('CHANGE VIEW')
-      } else if (window.location.pathname.length == 134) {
+      } else if (window.location.pathname.length === 134) {
         let parts = window.location.pathname.split(';')
         let claimId = parts[0].replace('/', '')
         let claimKey = parts[1]
@@ -400,13 +406,13 @@ class App extends Component {
           privateKey = window.location.hash
         }
         privateKey = privateKey.replace('#', '')
-        if (privateKey.indexOf('0x') != 0) {
+        if (privateKey.indexOf('0x') !== 0) {
           privateKey = '0x' + privateKey
         }
         //console.log("!!! possibleNewPrivateKey",privateKey)
         this.setState({ possibleNewPrivateKey: privateKey })
         window.history.pushState({}, '', '/')
-      } else if (window.location.pathname.indexOf('/vendors;') == 0) {
+      } else if (window.location.pathname.indexOf('/vendors;') === 0) {
         this.changeView('vendors')
       } else {
         let parts = window.location.pathname.split(';')
@@ -420,7 +426,7 @@ class App extends Component {
           }
           if (
             (parseFloat(sendToAmount) > 0 || extraData) &&
-            sendToAddress.length == 42
+            sendToAddress.length === 42
           ) {
             this.changeView('send_to_address')
           }
@@ -463,7 +469,7 @@ class App extends Component {
     let badgeBalance = 0
     if (
       this.state.contracts &&
-      (this.state.network == 'xDai' || this.state.network == 'Unknown') &&
+      (this.state.network === 'xDai' || this.state.network === 'Unknown') &&
       this.state.contracts.Badges
     ) {
       //check for badges for this user
@@ -508,7 +514,7 @@ class App extends Component {
     if (
       ERC20TOKEN &&
       this.state.contracts &&
-      (this.state.network == 'xDai' || this.state.network == 'Unknown')
+      (this.state.network === 'xDai' || this.state.network === 'Unknown')
     ) {
       let gasBalance = await this.state.web3.eth.getBalance(this.state.account)
       gasBalance = this.state.web3.utils.fromWei('' + gasBalance, 'ether')
@@ -637,7 +643,7 @@ class App extends Component {
     if (this.state && this.state.hasUpdateOnce) {
       if (
         this.state.metaAccount &&
-        this.state.metaAccount.privateKey.replace('0x', '') ==
+        this.state.metaAccount.privateKey.replace('0x', '') ===
           this.state.possibleNewPrivateKey.replace('0x', '')
       ) {
         this.setState({ possibleNewPrivateKey: false })
@@ -724,7 +730,7 @@ class App extends Component {
     let hash = namehash.hash(name)
     console.log('namehash', name, hash)
     let resolver = await this.state.ensContract.methods.resolver(hash).call()
-    if (resolver == '0x0000000000000000000000000000000000000000')
+    if (resolver === '0x0000000000000000000000000000000000000000')
       return '0x0000000000000000000000000000000000000000'
     console.log('resolver', resolver)
     let ensResolver = new this.state.mainnetweb3.eth.Contract(
@@ -856,7 +862,7 @@ class App extends Component {
       ).encodeABI()
       let network_gas_price = await this.state.web3.eth.getGasPrice()
       // Sometimes, xDai network returns '0'
-      if (!network_gas_price || network_gas_price == 0) {
+      if (!network_gas_price || network_gas_price === 0) {
         network_gas_price = 222222222222 // 222.(2) gwei
       }
       let options = {
@@ -895,8 +901,8 @@ class App extends Component {
   }
   changeView = (view, cb) => {
     if (
-      view == 'exchange' ||
-      view == 'main' /*||view.indexOf("account_")==0*/
+      view === 'exchange' ||
+      view === 'main' /*||view.indexOf("account_")==0*/
     ) {
       localStorage.setItem('view', view) //some pages should be sticky because of metamask reloads
       localStorage.setItem('viewSetTime', Date.now())
@@ -956,10 +962,10 @@ class App extends Component {
           }
 
           if (
-            smallerTx.from == this.state.account ||
-            smallerTx.to == this.state.account
+            smallerTx.from === this.state.account ||
+            smallerTx.to === this.state.account
           ) {
-            if (tx.input && tx.input != '0x') {
+            if (tx.input && tx.input !== '0x') {
               let decrypted = await this.decryptInput(tx.input)
 
               if (decrypted) {
@@ -1051,7 +1057,7 @@ class App extends Component {
     let updatedTxs = false
 
     let otherAccount = smallerTx.to
-    if (smallerTx.to == this.state.account) {
+    if (smallerTx.to === this.state.account) {
       otherAccount = smallerTx.from
     }
     if (!transactionsByAddress[otherAccount]) {
@@ -1062,11 +1068,11 @@ class App extends Component {
     if (parseFloat(smallerTx.value) > 0.005) {
       for (let r in recentTxs) {
         if (
-          recentTxs[r].hash ==
-          smallerTx.hash /* && (!smallerTx.data || recentTxs[r].data == smallerTx.data)*/
+          recentTxs[r].hash ===
+          smallerTx.hash /* && (!smallerTx.data || recentTxs[r].data === smallerTx.data)*/
         ) {
           found = true
-          if (!smallerTx.data || recentTxs[r].data == smallerTx.data) {
+          if (!smallerTx.data || recentTxs[r].data === smallerTx.data) {
             // do nothing, it exists
           } else {
             recentTxs[r].data = smallerTx.data
@@ -1084,13 +1090,13 @@ class App extends Component {
     found = false
     for (let t in transactionsByAddress[otherAccount]) {
       if (
-        transactionsByAddress[otherAccount][t].hash ==
-        smallerTx.hash /* && (!smallerTx.data || recentTxs[r].data == smallerTx.data)*/
+        transactionsByAddress[otherAccount][t].hash ===
+        smallerTx.hash /* && (!smallerTx.data || recentTxs[r].data === smallerTx.data)*/
       ) {
         found = true
         if (
           !smallerTx.data ||
-          transactionsByAddress[otherAccount][t].data == smallerTx.data
+          transactionsByAddress[otherAccount][t].data === smallerTx.data
         ) {
           // do nothing, it exists
         } else {
@@ -1233,7 +1239,7 @@ class App extends Component {
     } = this.state
 
     let networkOverlay = ''
-    if (web3 && !this.checkNetwork() && view != 'exchange') {
+    if (web3 && !this.checkNetwork() && view !== 'exchange') {
       networkOverlay = (
         <div>
           <input
@@ -1540,7 +1546,7 @@ class App extends Component {
                     }
                   }
 
-                  if (view.indexOf('account_') == 0) {
+                  if (view.indexOf('account_') === 0) {
                     let targetAddress = view.replace('account_', '')
                     console.log('TARGET', targetAddress)
                     return (
@@ -2023,8 +2029,8 @@ class App extends Component {
                         window.location.hostname
                       if (
                         window.location.port &&
-                        window.location.port != 80 &&
-                        window.location.port != 443
+                        window.location.port !== 80 &&
+                        window.location.port !== 443
                       ) {
                         url = url + ':' + window.location.port
                       }
@@ -2169,7 +2175,7 @@ class App extends Component {
                                 }
                                 if (
                                   localStorage &&
-                                  typeof localStorage.setItem == 'function'
+                                  typeof localStorage.setItem === 'function'
                                 ) {
                                   localStorage.setItem(
                                     this.state.account + 'loadedBlocksTop',
@@ -2412,7 +2418,7 @@ class App extends Component {
 
                         if (
                           localStorage &&
-                          typeof localStorage.setItem == 'function'
+                          typeof localStorage.setItem === 'function'
                         ) {
                           let initResult = this.initRecentTxs()
                           let recentTxs = initResult[0]
@@ -2550,14 +2556,14 @@ async function tokenSend(to, value, gasLimit, txData, cb) {
   let weiValue = this.state.web3.utils.toWei('' + value, 'ether')
 
   let setGasLimit = 60000
-  if (typeof gasLimit == 'function') {
+  if (typeof gasLimit === 'function') {
     cb = gasLimit
   } else if (gasLimit) {
     setGasLimit = gasLimit
   }
 
   let data = false
-  if (typeof txData == 'function') {
+  if (typeof txData === 'function') {
     cb = txData
   } else {
     data = txData
@@ -2620,7 +2626,7 @@ async function tokenSend(to, value, gasLimit, txData, cb) {
       })
   } else {
     let data = false
-    if (typeof txData == 'function') {
+    if (typeof txData === 'function') {
       cb = txData
     } else {
       data = txData
