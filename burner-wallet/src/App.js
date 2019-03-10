@@ -114,6 +114,12 @@ if (
     WEB3_PROVIDER = 'http://localhost:8545'
     LOADERIMAGE = bufficorn
   }
+} else if (window.location.hostname.indexOf('.github.io') >= 0 ) {
+  WEB3_PROVIDER =
+    'https://rinkeby.infura.io/v3/c1566c578ccb46308e5794173d45d300'
+  CLAIM_RELAY = false
+  ERC20TOKEN = false
+
 } else if (window.location.hostname.indexOf('s.xdai.io') >= 0) {
   WEB3_PROVIDER = POA_XDAI_NODE
   CLAIM_RELAY = 'https://x.xdai.io'
