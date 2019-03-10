@@ -17,4 +17,5 @@ git add build
 git commit -m "Update burner wallet distribution"
 cd ..
 git subtree push --prefix burner-wallet/build origin gh-pages
+git push
 ```
