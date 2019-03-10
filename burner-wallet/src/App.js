@@ -98,9 +98,10 @@ if (
   window.location.hostname.indexOf('localhost') >= 0 ||
   window.location.hostname.indexOf('10.0.0.107') >= 0
 ) {
-  XDAI_PROVIDER = 'http://localhost:8545'
-  WEB3_PROVIDER = 'http://localhost:8545'
-  CLAIM_RELAY = 'http://localhost:18462'
+  WEB3_PROVIDER =
+    'https://rinkeby.infura.io/v3/c1566c578ccb46308e5794173d45d300'
+  CLAIM_RELAY = false
+  ERC20TOKEN = false
   if (true) {
     ERC20NAME = false
     ERC20TOKEN = false
@@ -441,7 +442,7 @@ class App extends Component {
 
     let mainnetweb3 = new Web3(
       new Web3.providers.WebsocketProvider(
-        'wss://mainnet.infura.io/ws/v3/e0ea6e73570246bbb3d4bd042c4b5dac'
+        'wss://rinkeby.infura.io/ws/v3/c1566c578ccb46308e5794173d45d300'
       )
     )
     let ensContract = new mainnetweb3.eth.Contract(
@@ -1238,36 +1239,6 @@ class App extends Component {
       send,
     } = this.state
 
-    let networkOverlay = ''
-    if (web3 && !this.checkNetwork() && view !== 'exchange') {
-      networkOverlay = (
-        <div>
-          <input
-            style={{
-              zIndex: 13,
-              position: 'absolute',
-              opacity: 0.95,
-              right: 48,
-              top: 192,
-              width: 194,
-            }}
-            value='https://dai.poa.network'
-          />
-          <img
-            style={{
-              zIndex: 12,
-              position: 'absolute',
-              opacity: 0.95,
-              right: 0,
-              top: 0,
-              maxHeight: 370,
-            }}
-            src={customRPCHint}
-          />
-        </div>
-      )
-    }
-
     let web3_setup = ''
     if (web3) {
       web3_setup = (
@@ -1360,7 +1331,6 @@ class App extends Component {
         <div style={mainStyle}>
           <div style={innerStyle}>
             {extraHead}
-            {networkOverlay}
             {web3_setup}
 
             <div>
@@ -1590,16 +1560,16 @@ class App extends Component {
                     )
                   }
 
-                  let selected = 'xDai'
+                  let selected = 'ETH'
                   let extraTokens = ''
 
                   let defaultBalanceDisplay = (
                     <div>
                       <Balance
-                        icon={xdai}
+                        icon={eth}
                         selected={false}
-                        text={'xdai'}
-                        amount={this.state.xdaiBalance}
+                        text={'eth'}
+                        amount={this.state.ethBalance}
                         address={account}
                         dollarDisplay={dollarDisplay}
                       />
@@ -1649,24 +1619,6 @@ class App extends Component {
                           >
                             {extraTokens}
 
-                            <Balance
-                              icon={xdai}
-                              selected={selected}
-                              text={'xDai'}
-                              amount={this.state.xdaiBalance}
-                              address={account}
-                              dollarDisplay={dollarDisplay}
-                            />
-                            <Ruler />
-                            <Balance
-                              icon={dai}
-                              selected={selected}
-                              text={'DAI'}
-                              amount={this.state.daiBalance}
-                              address={account}
-                              dollarDisplay={dollarDisplay}
-                            />
-                            <Ruler />
                             <Balance
                               icon={eth}
                               selected={selected}
