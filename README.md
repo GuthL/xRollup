@@ -21,6 +21,11 @@ Cheap & Fast payments as found in other layer 2 solutions
 ### Non-custodial centralized exchange.
 All the speed of a CEX, without giving exchanges (and their hackers) custodial control of your funds.
 
+## Architecture
+- Our current implementation features a centralized validator node. The "One node blockchain". This can be expanded to a consensus mechanism.
+- State is pegged to smart contract on Ethereum mainnet regularly.
+- Proofs can be efficently executed on validator smart contracts, one for each zkSNARK.
+- Clients interact with the validators via JSON-RPC.
 ![Architecture Diagram](https://docs.google.com/uc?id=1HJa9jnb2yEYsP9xcIPQsgm0pWWrr7ysM)
 
 ### Deploying the xRollup Burner Wallet
