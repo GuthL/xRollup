@@ -6,21 +6,24 @@ const mimcjs = circomlib.mimc7
 
 const signer = (toAddress, amount) => {
   const xRollupPrivateKey = localStorage.getItem('xRollupPrivateKey')
-  const xRollupPubKey = eddsa.prv2pub(xRollupPrivateKey)
+  const xRollupPublicKey = localStorage
+    .getItem('xRollupPublicKey')
+    .split(',')
+    .map(k => parseInt(k))
 
   const pubKey_to = toAddress
 
   const token_type_from = 'XXXX' // example, DAI samrt contract address
   const token_type_to = 'XXXX' // example, DAI samrt contract address
 
-  const nonce_from = getNonce(xRollupPubKey, token_type_from)
-  const nonce_to = getNonce(xRollupPubKey, token_type_from)
+  const nonce_from = getNonce(xRollupPublicKey, token_type_from)
+  const nonce_to = getNonce(xRollupPublicKey, token_type_from)
 
-  const token_balance_from = getBalance(xRollupPubKey, token_type_from)
-  const token_balance_to = getBalance(xRollupPubKey, token_type_to)
+  const token_balance_from = getBalance(xRollupPublicKey, token_type_from)
+  const token_balance_to = getBalance(xRollupPublicKey, token_type_to)
 
   const old_hash_leaf_from = mimcjs.multiHash([
-    xRollupPubKey[0],
+    xRollupPublicKey[0],
     token_balance_from,
     nonce_from,
     token_type_from,
@@ -36,7 +39,7 @@ const signer = (toAddress, amount) => {
   const signature = eddsa.signMiMC(xRollupPrivateKey, old_hash_leaf_from)
 
   return {
-    pubkey: xRollupPubKey.map(x => x.toString()),
+    pubkey: xRollupPublicKey.map(x => x.toString()),
     token_balance_from: token_balance_from.toString(),
     nonce: nonce_from.toString(),
     token_type: token_type_from.toString(),

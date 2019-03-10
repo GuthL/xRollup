@@ -1,7 +1,10 @@
 const snarkjs = require('snarkjs')
 const bigInt = snarkjs.bigInt
 
-const generateRollupPrivateKey = hashFn => {
+const circomlib = require('circomlib')
+const eddsa = circomlib.eddsa
+
+export const generateRollupPrivateKey = hashFn => {
   const hash = hashFn('' + Math.random())
   const bigInt_hash = bigInt(hash, 16)
   const bigInt_refHash = bigInt(
@@ -10,4 +13,9 @@ const generateRollupPrivateKey = hashFn => {
   return bigInt_hash.mod(bigInt_refHash).toString(16)
 }
 
-export default generateRollupPrivateKey
+export const generateRollupPublicKey = () => {
+  const xRollupPrivateKey = localStorage.getItem('xRollupPrivateKey')
+  const foo = eddsa.prv2pub(xRollupPrivateKey)
+  console.log(foo)
+  return foo
+}

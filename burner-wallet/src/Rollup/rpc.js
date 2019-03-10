@@ -45,9 +45,14 @@ export const getNonce = async (xRollupPubKey, address) => {
 }
 
 export const sendTransferToSidechain = async payload => {
-  const { result } = await client.request('eth_sendTransaction', [
+  const { result, error } = await client.request('eth_sendTransaction', [
     'transfer',
     payload,
   ])
+
+  if (error) {
+    console.error(error)
+  }
+
   return result
 }

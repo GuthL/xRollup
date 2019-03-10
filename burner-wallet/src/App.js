@@ -57,7 +57,10 @@ import dai from './dai.jpg'
 import xdai from './xdai.jpg'
 
 import RollupToggle from './Rollup/Toggle'
-import generateRollupPrivateKey from './Rollup/generateKey'
+import {generateRollupPrivateKey, generateRollupPublicKey} from './Rollup/generateKey'
+const xRollupABI = require('./Rollup/xRollup.abi.js')
+const xRollupContractAddress = require('./Rollup/xRollup.address.js')
+const snarkjs = require('snarkjs')
 
 let base64url = require('base64url')
 const EthCrypto = require('eth-crypto')
@@ -1617,6 +1620,57 @@ class App extends Component {
                             className='main-card card w-100'
                             style={{ zIndex: 1 }}
                           >
+                          <RollupToggle
+                            enabled={this.state.isRollupEnabled}
+                            onChange={
+                              () => {
+                                /*
+                                 * Toggle the state for the Radio button
+                                 */
+                                this.setState({
+                                  isRollupEnabled: !this.state.isRollupEnabled,
+                                })
+
+                                /*
+                                 * xRollup private key generation ceremony
+                                 * Skip generation if private key already in localStorage
+                                 */
+                                if (!localStorage.getItem('xRollupPrivateKey')) {
+                                  localStorage.setItem(
+                                    'xRollupPrivateKey',
+                                    generateRollupPrivateKey(this.state.web3.utils.sha3)
+                                  )
+
+                                  localStorage.setItem(
+                                    'xRollupPublicKey',
+                                    generateRollupPublicKey()
+                                  )
+                                }
+
+                                /*
+                                 * Lock some ETH on the xRollup smart contract
+                                 */
+                                 const contract = new web3.eth.Contract(
+                                   xRollupABI, xRollupContractAddress, {
+                                     from: this.state.account
+                                   }
+                                 )
+
+                                 const xRollupPublicKey = localStorage.getItem('xRollupPublicKey').split(',').map(k => snarkjs.bigInt(k).toString())
+                                 console.log(contract.methods.getState)
+                                 contract.methods.registerKey(...xRollupPublicKey).send({
+                                   from: this.state.account
+                                 }).on('transactionHash', (hash) => {
+                                    console.log(hash)
+                                  })
+                                  .on('receipt', (receipt) => {
+                                      console.log(receipt)
+                                  })
+                                  .on('error', console.error);
+                              }
+                            }
+                          />
+
                             {extraTokens}
 
                             <Balance
@@ -1802,18 +1856,6 @@ class App extends Component {
                         </div>
                       )
                     case 'send_to_address':
-                      /*
-                       * xRollup private key generation ceremony
-                       */
-
-                      // Skip generation if private key already in localStorage
-                      if (!localStorage.getItem('xRollupPrivateKey')) {
-                        localStorage.setItem(
-                          'xRollupPrivateKey',
-                          generateRollupPrivateKey(this.state.web3.utils.sha3)
-                        )
-                      }
-
                       return (
                         <div>
                           <div
@@ -1826,14 +1868,6 @@ class App extends Component {
                             />
                             {defaultBalanceDisplay}
 
-                            <RollupToggle
-                              enabled={this.state.isRollupEnabled}
-                              onChange={() =>
-                                this.setState({
-                                  isRollupEnabled: !this.state.isRollupEnabled,
-                                })
-                              }
-                            />
                             <SendToAddress
                               parseAndCleanPath={this.parseAndCleanPath.bind(
                                 this
