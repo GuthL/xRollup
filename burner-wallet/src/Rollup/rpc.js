@@ -10,7 +10,8 @@ var callServer = function(request, callback) {
     },
   }
 
-  fetch('http://localhost:3000', options)
+  /* Connect to the RPC service of the zkSNARKs sidechain */
+  fetch('https://evening-lake-79752.herokuapp.com:3000', options)
     .then(function(res) {
       return res.text()
     })
