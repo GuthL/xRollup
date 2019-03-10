@@ -1,7 +1,7 @@
 const eddsa = require("./src/eddsa.js");
 const snarkjs = require("./src/snarkjs");
 const MIMC = require('./src/mimc7.js')
-
+const assert = require('assert');
 
 const NONCE_MAX_VALUE = 100;
 
@@ -102,13 +102,6 @@ function verifyTransfer(batchTransactions, leafsSet){
 
 function verifyDeposit(batchTransactions, leafsSet){	
 	for (t in batchTransactions){
-		assert(eddsa.verifyMiMC(pubKey, msg));
-
-		const leaves = ['a', 'b', 'c'].map(x => MIMC(x))
-		const tree = new MerkleTree(leaves, MIMC)
-		const root = tree.getRoot().toString('hex')
-		const leaf = MIMC('a')
-		const proof = tree.getProof(leaf)
 	}	
 }
 
@@ -129,10 +122,50 @@ function verifyWithdraw(batchTransactions, leafsSet){
 	}	
 }
 
-function generateWitnessTransfer(batchTransactions, leafsSet){
+function generateWitnessDeposit(batchTransactions, leafsSet, current_state, current_index){
+	verifyTransfer(batchTransactions, leafsSet);
+	var paths2root = [];
+	var index = current_index;
+	var state = current_state;
+
+	var pubkey = [];
+	var deposit = [];
+	var token_type = [];
+	var paths2root = [];
+	var i;
+
+	for (t in batchTransactions){
+		pubkey.push(t.pubkey);
+		deposit.push(t.deposit);
+		token_type.push(t.token_type);
+		const old_tree = merkleTree1(leafsSet, [index]);
+		paths2root.push(tree[1]);
+		const account = MIMC.multiHash([t.pubkey[0],t.deposit,0,t.token_type]);
+		leafsSet[index] = account;
+		const new_tree = merkleTree1(leafsSet, [index]);
+		index = index+1;
+		state = new_tree[0];
+	}
+
+	const inputs = {
+	current_state: current_state,
+	last_index: current_index,
+	pubkey: pubkey,
+	deposit: deposit,
+	token_type: 1,
+	paths2root: paths2root,
+	new_state: state,
+	new_index: current_index+batchTransactions.length
+    }
+
+    const {proof, publicSignals} = zkSnark.genProof(vk_proof, witness);
+	return {proof, publicSignals}
+}
+
+function generateWitnessTransfer(batchTransactions, leafsSet, current_state){
 	verifyTransfer(batchTransactions, leafsSet);
 	var index_proof = [];
-
+	var state = current_state;
 	for (t in batchTransactions){
 
 		const old_account_from = MIMC.multiHash([t.pubkey[0],t.token_balance_from,t.nonce,t.token_type]);
@@ -142,7 +175,6 @@ function generateWitnessTransfer(batchTransactions, leafsSet){
 		leafsSet[leafsSet.indexOf(old_account_to)] = MIMC.multiHash([t.to[0],t.token_balance_to+amount,t.nonce_to+1,t.token_type])
 		const tree = merkleTree(leafsSet, [leafsSet.indexOf(old_account_from), leafsSet.indexOf(old_account_to)]);
 	}
-
 }
 
 function generateWitnessWithdraw(batchTransactions, leafsSet){
@@ -156,6 +188,4 @@ function generateWitnessWithdraw(batchTransactions, leafsSet){
 		index_proof.push(index)
 	}
 	const tree = merkleTree(leafsSet, index_proof);
-
-
 }
