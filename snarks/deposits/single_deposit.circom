@@ -2,7 +2,7 @@ include "../circomlib/circuits/mimc.circom";
 include "../circomlib/circuits/eddsamimc.circom";
 include "../circomlib/circuits/bitify.circom";
 
-template Main(n,k) {
+template Main(n) {
     signal input current_state;
 
     signal input last_index;
@@ -89,4 +89,4 @@ template Main(n,k) {
 
     }
 
-component main = Main(6,1);
+component main = Main(6);
