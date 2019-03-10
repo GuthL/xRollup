@@ -1,5 +1,5 @@
 # xRollup
-![Logo](https://docs.google.com/uc?id=1HJa9jnb2yEYsP9xcIPQsgm0pWWrr7ysM)
+![Logo](https://docs.google.com/uc?id=1LQGnOGaufOhiqpFT4jEpm0D-zsV004XL)
 xRollup is a layer 2 scaling solution leveraging zkSnarks.
 
 ## Why zkSNARKS for scalaibility?
