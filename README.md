@@ -15,5 +15,6 @@ cd burner-wallet
 npm run build
 git add build
 git commit -m "Update burner wallet distribution"
-git subtree push --prefix build origin gh-pages
+cd ..
+git subtree push --prefix burner-wallet/build origin gh-pages
 ```
